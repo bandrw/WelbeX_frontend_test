@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"baseUrl": "src",
+		"jsx": "react",
+		"allowSyntheticDefaultImports": true,
+		"allowJs": false,
+		"resolveJsonModule": true,
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"target": "es6",
+		"moduleResolution": "node",
+		"paths": {
+			"@components/*": ["components/*"],
+			"@entities/*": ["entities/*"],
+			"@features/*": ["features/*"],
+			"@pages/*": ["pages/*"],
+			"@shared/*": ["shared/*"]
+		}
+	},
+	"include": ["./src"]
+}
