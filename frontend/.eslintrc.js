@@ -76,12 +76,7 @@ module.exports = {
 			},
 		],
 		'react/jsx-props-no-spreading': 0,
-		'react/jsx-max-props-per-line': [
-			2,
-			{
-				maximum: 1,
-			},
-		],
+		'react/jsx-max-props-per-line': 0,
 		'react/require-default-props': 0,
 		'simple-import-sort/imports': 'error',
 		'simple-import-sort/exports': 'error',
