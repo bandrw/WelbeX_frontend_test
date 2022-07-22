@@ -80,13 +80,6 @@ module.exports = {
 		'react/require-default-props': 0,
 		'simple-import-sort/imports': 'error',
 		'simple-import-sort/exports': 'error',
-		'max-len': [
-			'error',
-			{
-				code: 80,
-				tabWidth: 4,
-			},
-		],
 		'arrow-body-style': 0,
 		'no-param-reassign': 0,
 		'jsx-a11y/media-has-caption': 0,
