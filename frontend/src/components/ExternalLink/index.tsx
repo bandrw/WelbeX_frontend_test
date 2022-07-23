@@ -1,3 +1,6 @@
+import './styles.scss';
+
+import {cn} from '@bem-react/classname';
 import React from 'react';
 
 interface ExternalLinkProps {
@@ -5,9 +8,16 @@ interface ExternalLinkProps {
 	href?: string;
 }
 
+const cnExternalLink = cn('ExternalLink');
+
 const ExternalLink: React.FC<ExternalLinkProps> = ({children, href = '#'}) => {
 	return (
-		<a href={href} target="_blank" rel="noopener noreferrer">
+		<a
+			className={cnExternalLink()}
+			href={href}
+			target="_blank"
+			rel="noopener noreferrer"
+		>
 			{children}
 		</a>
 	);

@@ -7,6 +7,7 @@ import {
 	GoodsColumn,
 	GoodsFilterCondition,
 	GoodsFilterValue,
+	GoodsSortMethod,
 	GoodsTableFilter,
 } from '../model/types';
 
@@ -16,6 +17,8 @@ export const useGoodsTable = () => {
 		condition: null,
 		value: '',
 	});
+
+	const [sortMethod, setSortMethod] = useState<GoodsSortMethod>(null);
 
 	const onFilterColumnChange = useCallback((column: GoodsColumn) => {
 		setFilterOptions((prevState) => ({
@@ -45,9 +48,13 @@ export const useGoodsTable = () => {
 		}));
 	}, []);
 
+	const onSortChange = useCallback((method: GoodsSortMethod) => {
+		setSortMethod(method);
+	}, []);
+
 	const {data, isLoading, isError} = useQuery<Good[]>(
-		['goods', filterOptions],
-		() => api.getGoods({filterBy: filterOptions})
+		['goods', filterOptions, sortMethod],
+		() => api.getGoods({filterBy: filterOptions, sortBy: sortMethod})
 	);
 
 	return {
@@ -58,5 +65,7 @@ export const useGoodsTable = () => {
 		onFilterConditionChange,
 		onFilterValueChange,
 		filterOptions,
+		sortMethod,
+		onSortChange,
 	};
 };

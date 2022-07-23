@@ -8,6 +8,7 @@ import {
 	GoodsColumn,
 	GoodsFilterCondition,
 	GoodsFilterValue,
+	GoodsSortMethod,
 } from '../../model/types';
 
 interface GoodsTableFiltersProps {
@@ -17,6 +18,8 @@ interface GoodsTableFiltersProps {
 	onFilterColumnChange: (column: GoodsColumn) => void;
 	onFilterConditionChange: (condition: GoodsFilterCondition) => void;
 	onFilterValueChange: (value: GoodsFilterValue) => void;
+	sortMethod: GoodsSortMethod;
+	onSortChange: (method: GoodsSortMethod) => void;
 }
 
 const columnOptions: ComboBoxOption[] = [
@@ -55,6 +58,20 @@ const conditionOptions: ComboBoxOption[] = [
 		key: 'less',
 	},
 ];
+const sortMethodOptions: ComboBoxOption[] = [
+	{
+		name: 'Name',
+		key: 'name',
+	},
+	{
+		name: 'Count',
+		key: 'count',
+	},
+	{
+		name: 'Distance',
+		key: 'distance',
+	},
+];
 
 const GoodsTableFilters: React.FC<GoodsTableFiltersProps> = ({
 	selectedColumn,
@@ -63,6 +80,8 @@ const GoodsTableFilters: React.FC<GoodsTableFiltersProps> = ({
 	onFilterColumnChange,
 	onFilterValueChange,
 	onFilterConditionChange,
+	sortMethod,
+	onSortChange,
 }) => {
 	return (
 		<Flex container alignItems="center" gap={20}>
@@ -87,6 +106,14 @@ const GoodsTableFilters: React.FC<GoodsTableFiltersProps> = ({
 					value={String(filterValue)}
 					onChange={onFilterValueChange}
 					placeholder="Value"
+				/>
+			</Control>
+
+			<Control title="Sort by">
+				<ComboBox
+					options={sortMethodOptions}
+					value={sortMethod}
+					onChange={onSortChange}
 				/>
 			</Control>
 		</Flex>

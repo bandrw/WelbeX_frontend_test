@@ -1,9 +1,13 @@
 import {Good} from '@entities/good/model/types';
-import {GoodsTableFilter} from '@features/goods-table/model/types';
+import {
+	GoodsSortMethod,
+	GoodsTableFilter,
+} from '@features/goods-table/model/types';
 import axios, {AxiosInstance, AxiosResponse} from 'axios';
 
 interface GetGoodsOptions {
-	filterBy: GoodsTableFilter;
+	filterBy?: GoodsTableFilter;
+	sortBy?: GoodsSortMethod;
 }
 
 class Api {
@@ -33,6 +37,7 @@ class Api {
 
 		return this.get<Good[]>('/goods', {
 			filterBy: JSON.stringify(filterBy),
+			sortBy: options?.sortBy,
 		});
 	}
 }

@@ -31,6 +31,14 @@ const ComboBox: React.FC<ComboBoxProps> = ({options, value, onChange}) => {
 			isOpened={showTooltip}
 			popup={
 				<ul className={cnComboBox('List')}>
+					<li
+						onClick={() => onChange(null)}
+						className={cnComboBox('List-Item', {
+							selected: value === null,
+						})}
+					>
+						None
+					</li>
 					{options.map((option) => (
 						<li
 							onClick={() => onChange(option.key)}

@@ -1,0 +1,13 @@
+.ExternalLink {
+	text-decoration: none;
+	color: var(--color-link);
+	transition: all 0.05s ease-in-out;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+	&:active {
+		color: var(--color-link-active)
+	}
+}

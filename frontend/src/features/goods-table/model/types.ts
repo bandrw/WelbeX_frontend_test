@@ -14,3 +14,5 @@ export interface GoodsTableFilter {
 	condition: GoodsFilterCondition;
 	value: GoodsFilterValue;
 }
+
+export type GoodsSortMethod = 'name' | 'count' | 'distance' | null;

@@ -28,6 +28,8 @@ const GoodsTable: React.FC = () => {
 		onFilterConditionChange,
 		onFilterColumnChange,
 		filterOptions,
+		sortMethod,
+		onSortChange,
 	} = useGoodsTable();
 
 	return (
@@ -40,6 +42,8 @@ const GoodsTable: React.FC = () => {
 					onFilterColumnChange={onFilterColumnChange}
 					onFilterConditionChange={onFilterConditionChange}
 					onFilterValueChange={onFilterValueChange}
+					sortMethod={sortMethod}
+					onSortChange={onSortChange}
 				/>
 				<div className={cnGoodsTable()}>
 					<Flex
