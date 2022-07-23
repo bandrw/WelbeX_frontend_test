@@ -15,28 +15,27 @@ interface ButtonProps extends React.PropsWithChildren {
 
 const cnButton = cn('Button');
 
-const Button: React.FC<ButtonProps> = ({
-	children,
-	disabled = false,
-	view = 'default',
-	size = 's',
-	onClick,
-	pin,
-}) => {
-	return (
-		<button
-			disabled={disabled}
-			className={cnButton({
-				[view]: true,
-				[size]: true,
-				[`pin-${pin}`]: pin !== undefined,
-			})}
-			onClick={onClick}
-			type="button"
-		>
-			{children}
-		</button>
-	);
-};
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+	(
+		{children, disabled = false, view = 'default', size = 's', onClick, pin},
+		ref
+	) => {
+		return (
+			<button
+				ref={ref}
+				disabled={disabled}
+				className={cnButton({
+					[view]: true,
+					[size]: true,
+					[`pin-${pin}`]: pin !== undefined,
+				})}
+				onClick={onClick}
+				type="button"
+			>
+				{children}
+			</button>
+		);
+	}
+);
 
 export default Button;
