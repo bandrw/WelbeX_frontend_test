@@ -23,7 +23,7 @@ const getFilterGoodsMethod = ({column, condition, value}) => {
 		if (condition === 'more') return (good) => good[column] > value;
 };
 
-const parseGoodsQuery = ({sortBy, filterBy}) => {
+const parseGoodsQuery = ({sortBy, filterBy, page, pageSize}) => {
 	if (sortBy !== undefined && !['name', 'count', 'distance'].includes(sortBy)) {
 		return {isError: true, code: 400, msg: 'Invalid sort method'};
 	}
@@ -45,7 +45,29 @@ const parseGoodsQuery = ({sortBy, filterBy}) => {
 		return {isError: true, code: 400, msg: 'Invalid filterBy'};
 	}
 
-	return {isError: false, query: {sortBy, filterBy: parsedFilterBy}};
+	let parsedPage;
+	let parsedPageSize;
+
+	if (page !== undefined) {
+		parsedPage = Number(page);
+		if (isNaN(parsedPage) || parsedPage <= 0)
+			return {isError: true, code: 400, msg: 'Invalid page'};
+	}
+	if (pageSize !== undefined) {
+		parsedPageSize = Number(pageSize);
+		if (isNaN(parsedPageSize) || parsedPageSize <= 0)
+			return {isError: true, code: 400, msg: 'Invalid pageSize'};
+	}
+
+	return {
+		isError: false,
+		query: {
+			sortBy,
+			filterBy: parsedFilterBy,
+			page: parsedPage,
+			pageSize: parsedPageSize,
+		},
+	};
 };
 
 app.get('/goods', (req, res) => {
@@ -81,7 +103,7 @@ app.get('/goods', (req, res) => {
 		res.send({msg});
 		return;
 	}
-	const {sortBy, filterBy} = query;
+	const {sortBy, filterBy, page = 1, pageSize = 10} = query;
 
 	if (filterBy !== undefined) {
 		data = data.filter(getFilterGoodsMethod(filterBy));
@@ -90,7 +112,15 @@ app.get('/goods', (req, res) => {
 		data.sort(sortGoodsMethods[sortBy]);
 	}
 
-	res.send(data);
+	const pagedData = data.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+
+	res.send({
+		data: pagedData,
+		page,
+		pageSize: pagedData.length,
+		totalPages: Math.floor(data.length / pageSize) + (data.length % 10 !== 0 ? 1 : 0),
+		totalElements: data.length,
+	});
 });
 
 app.listen(port, () => {
