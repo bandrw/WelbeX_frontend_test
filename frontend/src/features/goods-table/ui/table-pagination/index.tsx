@@ -13,17 +13,6 @@ interface GoodsTablePaginationProps {
 	setPageSize: (pageSize: number) => void;
 }
 
-const getPageKey = ({
-	page,
-	pageSize,
-	totalElements,
-}: {
-	page: number;
-	pageSize: number;
-	totalElements: number;
-}) =>
-	`${(page - 1) * pageSize + 1} - ${Math.min(page * pageSize, totalElements)}`;
-
 const pageSizeOptions: ComboBoxOption[] = [
 	{
 		name: '10',
@@ -54,7 +43,10 @@ const GoodsTablePagination: React.FC<GoodsTablePaginationProps> = ({
 	const pagesOptions = useMemo<ComboBoxOption[]>(() => {
 		return new Array(totalPages).fill(0).map((_, i) => ({
 			key: String(i + 1),
-			name: getPageKey({page: i + 1, pageSize, totalElements}),
+			name: `${i * pageSize + 1} - ${Math.min(
+				(i + 1) * pageSize,
+				totalElements
+			)}`,
 		}));
 	}, [pageSize, totalElements, totalPages]);
 

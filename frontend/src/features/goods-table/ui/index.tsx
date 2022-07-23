@@ -92,7 +92,7 @@ const GoodsTable: React.FC = () => {
 									alignItems="center"
 								>
 									<div>
-										<Moment date={good.date} format="MMMM DD YYYY, H:mm" />
+										<Moment date={good.date} format="MMMM DD YYYY, HH:mm" />
 									</div>
 									<div>{good.name}</div>
 									<div>{good.count}</div>
