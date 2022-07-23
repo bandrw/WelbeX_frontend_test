@@ -16,7 +16,7 @@ const getFilterGoodsMethod = ({column, condition, value}) => {
 		if (condition === 'equal') return (good) => good[column] === value;
 		if (condition === 'contains') {
 			return (good) => typeof value === 'string' && typeof good[column] === 'string'
-				? good[column].includes(value)
+				? good[column].trim().toLowerCase().includes(value.trim().toLowerCase())
 				: good[column] === value;
 		}
 		if (condition === 'less') return (good) => good[column] < value;
@@ -77,7 +77,7 @@ app.get('/goods', (req, res) => {
 		{id: 2, date: 1658425006253, name: 'Rice', count: 964, distance: 1070 },
 		{id: 3, date: 1658425003833, name: 'Maize', count: 123, distance: 78 },
 		{id: 4, date: 1658425011542, name: 'Corn', count: 498, distance: 2230 },
-		{id: 5, date: 1658425011129, name: 'Packaged', count: 772, distance: 2320 },
+		{id: 5, date: 1658425011129, name: 'Package', count: 772, distance: 2320 },
 		{id: 6, date: 1658425002763, name: 'Cereal', count: 470, distance: 9634 },
 		{id: 7, date: 1658425009363, name: 'Beef', count: 145, distance: 6263 },
 		{id: 8, date: 1658425010107, name: 'Yogurt', count: 426, distance: 1568 },

@@ -3,11 +3,14 @@ import {
 	GoodsSortMethod,
 	GoodsTableFilter,
 } from '@features/goods-table/model/types';
+import {WithPagination} from '@shared/lib/types';
 import axios, {AxiosInstance, AxiosResponse} from 'axios';
 
 interface GetGoodsOptions {
 	filterBy?: GoodsTableFilter;
 	sortBy?: GoodsSortMethod;
+	page?: number;
+	pageSize?: number;
 }
 
 class Api {
@@ -26,7 +29,7 @@ class Api {
 		return data;
 	}
 
-	async getGoods(options?: GetGoodsOptions): Promise<Good[]> {
+	async getGoods(options?: GetGoodsOptions): Promise<WithPagination<Good[]>> {
 		const filterBy =
 			options !== undefined &&
 			options.filterBy !== undefined &&
@@ -35,9 +38,11 @@ class Api {
 				? options.filterBy
 				: undefined;
 
-		return this.get<Good[]>('/goods', {
+		return this.get<WithPagination<Good[]>>('/goods', {
 			filterBy: JSON.stringify(filterBy),
 			sortBy: options?.sortBy,
+			page: options?.page,
+			pageSize: options?.pageSize,
 		});
 	}
 }

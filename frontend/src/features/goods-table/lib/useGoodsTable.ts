@@ -1,7 +1,8 @@
 import {Good} from '@entities/good/model/types';
 import {api} from '@shared/api';
+import {WithPagination} from '@shared/lib/types';
 import {useQuery} from '@tanstack/react-query';
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import {
 	GoodsColumn,
@@ -19,6 +20,22 @@ export const useGoodsTable = () => {
 	});
 
 	const [sortMethod, setSortMethod] = useState<GoodsSortMethod>(null);
+
+	const [paginationOptions, setPaginationOptions] = useState({
+		page: 1,
+		pageSize: 10,
+	});
+
+	const setPage = useCallback((page: number) => {
+		setPaginationOptions((prevState) => ({
+			...prevState,
+			page,
+		}));
+	}, []);
+
+	const setPageSize = useCallback((pageSize: number) => {
+		setPaginationOptions((prevState) => ({...prevState, pageSize}));
+	}, []);
 
 	const onFilterColumnChange = useCallback((column: GoodsColumn) => {
 		setFilterOptions((prevState) => ({
@@ -52,13 +69,30 @@ export const useGoodsTable = () => {
 		setSortMethod(method);
 	}, []);
 
-	const {data, isLoading, isError} = useQuery<Good[]>(
-		['goods', filterOptions, sortMethod],
-		() => api.getGoods({filterBy: filterOptions, sortBy: sortMethod})
+	const {data, isLoading, isError} = useQuery<WithPagination<Good[]>>(
+		['goods', filterOptions, sortMethod, paginationOptions],
+		() =>
+			api.getGoods({
+				filterBy: filterOptions,
+				sortBy: sortMethod,
+				page: paginationOptions.page,
+				pageSize: paginationOptions.pageSize,
+			})
 	);
 
+	useEffect(() => {
+		if (data !== undefined && data.totalPages < paginationOptions.page)
+			setPage(data.totalPages === 0 ? 1 : data.totalPages);
+	}, [data, paginationOptions.page, setPage]);
+
 	return {
-		goods: data || [],
+		goods: data?.data || [],
+		page: paginationOptions.page,
+		pageSize: paginationOptions.pageSize,
+		totalPages: data?.totalPages || 1,
+		totalElements: data?.totalElements || 1,
+		setPage,
+		setPageSize,
 		isLoading,
 		isError,
 		onFilterColumnChange,

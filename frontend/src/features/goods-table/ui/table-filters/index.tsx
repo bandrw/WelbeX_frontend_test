@@ -83,6 +83,7 @@ const GoodsTableFilters: React.FC<GoodsTableFiltersProps> = ({
 		<Flex container alignItems="center" gap={20}>
 			<Control title="Column">
 				<ComboBox
+					showNullOption
 					options={columnOptions}
 					value={selectedColumn}
 					onChange={onFilterColumnChange}
@@ -91,6 +92,7 @@ const GoodsTableFilters: React.FC<GoodsTableFiltersProps> = ({
 
 			<Control title="Condition">
 				<ComboBox
+					showNullOption
 					options={conditionOptions}
 					value={selectedCondition}
 					onChange={onFilterConditionChange}
@@ -107,6 +109,7 @@ const GoodsTableFilters: React.FC<GoodsTableFiltersProps> = ({
 
 			<Control title="Sort by">
 				<ComboBox
+					showNullOption
 					options={sortMethodOptions}
 					value={sortMethod}
 					onChange={onSortChange}

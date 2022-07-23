@@ -4,7 +4,7 @@
 	box-shadow: rgba(0, 0, 0, 0.3) 0 2px 10px;
 	border-radius: 5px;
 
-	&_bottom {
+	&_bottom, &_top {
 		transform: translateX(-50%);
 	}
 

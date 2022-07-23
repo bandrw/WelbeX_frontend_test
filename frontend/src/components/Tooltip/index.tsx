@@ -1,17 +1,11 @@
 import './styles.scss';
 
 import {cn} from '@bem-react/classname';
-import React, {useEffect, useRef, useState} from 'react';
+import {Offset, useOffset} from '@shared/lib/hooks/useOffset';
+import React, {useRef} from 'react';
 import ReactDOM from 'react-dom';
 
-interface Offset {
-	top: number;
-	left: number;
-	width: number;
-	height: number;
-}
-
-type TooltipDirection = 'right' | 'bottom';
+export type TooltipDirection = 'right' | 'bottom' | 'top';
 
 interface TooltipProps extends React.PropsWithChildren {
 	popup: React.ReactNode;
@@ -32,19 +26,24 @@ const Popup: React.FC<PopupProps> = ({
 	direction = 'bottom',
 }) => {
 	const GAP = 10;
+	const ref = useRef<HTMLDivElement>(null);
+
+	const {offset: popupOffset} = useOffset<HTMLDivElement>(ref);
 
 	const getLeft = () => {
 		if (direction === 'bottom') return offset.left + offset.width / 2;
 		if (direction === 'right') return offset.left + offset.width + GAP;
-		return 0;
+		if (direction === 'top') return offset.left + offset.width / 2;
 	};
 	const getTop = () => {
 		if (direction === 'bottom') return offset.top + offset.height + GAP;
 		if (direction === 'right') return offset.top + offset.height / 2;
+		if (direction === 'top') return offset.top - popupOffset.height - GAP;
 	};
 
 	return ReactDOM.createPortal(
 		<div
+			ref={ref}
 			className={cnPopup({[direction]: true})}
 			style={{left: getLeft(), top: getTop()}}
 		>
@@ -60,45 +59,9 @@ const Tooltip: React.FC<TooltipProps> = ({
 	direction = 'bottom',
 	isOpened,
 }) => {
-	const [offset, setOffset] = useState<Offset>({
-		top: 0,
-		left: 0,
-		width: 0,
-		height: 0,
-	});
-	const ref = useRef(null);
+	const ref = useRef<HTMLDivElement>(null);
 
-	const updateOffset = {
-		initialized: ref.current !== null,
-		top: ref.current?.offsetTop || 0,
-		left: ref.current?.offsetLeft || 0,
-		width: ref.current?.offsetWidth || 0,
-		height: ref.current?.offsetHeight || 0,
-	};
-
-	useEffect(() => {
-		if (updateOffset.initialized) {
-			setOffset({
-				top: ref.current.offsetTop,
-				left: ref.current.offsetLeft,
-				width: ref.current.offsetWidth,
-				height: ref.current.offsetHeight,
-			});
-		} else {
-			setOffset({
-				top: updateOffset.top,
-				left: updateOffset.left,
-				height: updateOffset.height,
-				width: updateOffset.width,
-			});
-		}
-	}, [
-		updateOffset.initialized,
-		updateOffset.height,
-		updateOffset.left,
-		updateOffset.top,
-		updateOffset.width,
-	]);
+	const {offset} = useOffset<HTMLDivElement>(ref);
 
 	return (
 		<>

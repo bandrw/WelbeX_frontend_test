@@ -16,7 +16,7 @@ const Header: React.FC = () => {
 			justifyContent="center"
 			alignItems="center"
 		>
-			<h1>Simple Table</h1>
+			<h1>Table for WelbeX</h1>
 		</Flex>
 	);
 };

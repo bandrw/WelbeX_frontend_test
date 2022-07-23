@@ -1,8 +1,8 @@
 import './styles.scss';
 
 import {cn} from '@bem-react/classname';
-import Button from '@components/Button';
-import Tooltip from '@components/Tooltip';
+import Button, {ButtonPin} from '@components/Button';
+import Tooltip, {TooltipDirection} from '@components/Tooltip';
 import React, {useMemo, useState} from 'react';
 
 export interface ComboBoxOption {
@@ -14,11 +14,21 @@ interface ComboBoxProps {
 	options: ComboBoxOption[];
 	value: string | null;
 	onChange: (value: string) => void;
+	showNullOption?: boolean;
+	pin?: ButtonPin;
+	direction?: TooltipDirection;
 }
 
 const cnComboBox = cn('ComboBox');
 
-const ComboBox: React.FC<ComboBoxProps> = ({options, value, onChange}) => {
+const ComboBox: React.FC<ComboBoxProps> = ({
+	options,
+	value,
+	onChange,
+	showNullOption = false,
+	pin,
+	direction,
+}) => {
 	const [showTooltip, setShowTooltip] = useState(false);
 
 	const displayName = useMemo(
@@ -31,14 +41,16 @@ const ComboBox: React.FC<ComboBoxProps> = ({options, value, onChange}) => {
 			isOpened={showTooltip}
 			popup={
 				<ul className={cnComboBox('List')}>
-					<li
-						onClick={() => onChange(null)}
-						className={cnComboBox('List-Item', {
-							selected: value === null,
-						})}
-					>
-						None
-					</li>
+					{showNullOption ? (
+						<li
+							onClick={() => onChange(null)}
+							className={cnComboBox('List-Item', {
+								selected: value === null,
+							})}
+						>
+							None
+						</li>
+					) : null}
 					{options.map((option) => (
 						<li
 							onClick={() => onChange(option.key)}
@@ -52,8 +64,12 @@ const ComboBox: React.FC<ComboBoxProps> = ({options, value, onChange}) => {
 					))}
 				</ul>
 			}
+			direction={direction}
 		>
-			<Button onClick={() => setShowTooltip((prevState) => !prevState)}>
+			<Button
+				onClick={() => setShowTooltip((prevState) => !prevState)}
+				pin={pin}
+			>
 				{value === null ? 'None' : displayName?.name}
 			</Button>
 		</Tooltip>

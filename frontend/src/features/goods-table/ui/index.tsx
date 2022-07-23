@@ -3,11 +3,13 @@ import './styles.scss';
 import {cn} from '@bem-react/classname';
 import Flex from '@components/Flex';
 import Pendable from '@components/Pendable';
+import Text from '@components/Text';
 import React from 'react';
 import Moment from 'react-moment';
 
 import {useGoodsTable} from '../lib/useGoodsTable';
 import GoodsTableFilters from './table-filters';
+import GoodsTablePagination from './table-pagination';
 
 // TODO
 // const columns = [
@@ -30,6 +32,12 @@ const GoodsTable: React.FC = () => {
 		filterOptions,
 		sortMethod,
 		onSortChange,
+		page,
+		pageSize,
+		totalPages,
+		totalElements,
+		setPage,
+		setPageSize,
 	} = useGoodsTable();
 
 	return (
@@ -58,7 +66,23 @@ const GoodsTable: React.FC = () => {
 					</Flex>
 					<Flex className={cnGoodsTable('Body')}>
 						{isError ? (
-							<div>Error</div>
+							<Flex
+								container
+								alignItems="center"
+								justifyContent="center"
+								height="100%"
+							>
+								<Text>Error</Text>
+							</Flex>
+						) : goods.length === 0 ? (
+							<Flex
+								container
+								alignItems="center"
+								justifyContent="center"
+								height="100%"
+							>
+								<Text>No items</Text>
+							</Flex>
 						) : (
 							goods.map((good) => (
 								<Flex
@@ -78,6 +102,14 @@ const GoodsTable: React.FC = () => {
 						)}
 					</Flex>
 				</div>
+				<GoodsTablePagination
+					page={page}
+					pageSize={pageSize}
+					totalElements={totalElements}
+					totalPages={totalPages}
+					setPage={setPage}
+					setPageSize={setPageSize}
+				/>
 			</Flex>
 		</Pendable>
 	);

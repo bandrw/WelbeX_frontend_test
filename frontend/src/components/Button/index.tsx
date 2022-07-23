@@ -3,23 +3,34 @@ import './styles.scss';
 import {cn} from '@bem-react/classname';
 import React from 'react';
 
+export type ButtonPin = 'left' | 'right';
+
 interface ButtonProps extends React.PropsWithChildren {
+	disabled?: boolean;
+	onClick?: () => void;
 	view?: 'action' | 'default' | 'pseudo';
 	size?: 's' | 'm' | 'l';
-	onClick: () => void;
+	pin?: ButtonPin;
 }
 
 const cnButton = cn('Button');
 
 const Button: React.FC<ButtonProps> = ({
 	children,
+	disabled = false,
 	view = 'default',
 	size = 's',
 	onClick,
+	pin,
 }) => {
 	return (
 		<button
-			className={[cnButton({[view]: true}), cnButton({[size]: true})].join(' ')}
+			disabled={disabled}
+			className={cnButton({
+				[view]: true,
+				[size]: true,
+				[`pin-${pin}`]: pin !== undefined,
+			})}
 			onClick={onClick}
 			type="button"
 		>
