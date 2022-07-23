@@ -1,0 +1,9 @@
+.Control {
+	&-Title {
+		height: 18px;
+		text-transform: uppercase;
+		color: var(--color-gray);
+		font-size: 0.7rem;
+		margin-bottom: 2px;
+	}
+}

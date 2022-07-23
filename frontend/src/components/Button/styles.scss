@@ -1,0 +1,19 @@
+.Button {
+	font-size: 1em;
+	cursor: pointer;
+	padding: 5px 20px;
+	transition: 0.05s ease-in-out;
+	background: var(--color-white);
+	outline: none;
+	min-width: 120px;
+	border: 1px solid var(--color-gray);
+	border-radius: 5px;
+
+	&:hover {
+		background-color: #fcfcfc;
+	}
+
+	&:active {
+		transform: scale(0.95);
+	}
+}

@@ -15,7 +15,7 @@ const sortGoodsMethods = {
 const getFilterGoodsMethod = ({column, condition, value}) => {
 		if (condition === 'equal') return (good) => good[column] === value;
 		if (condition === 'contains') {
-			return (good) => (typeof value) === 'string'
+			return (good) => typeof value === 'string' && typeof good[column] === 'string'
 				? good[column].includes(value)
 				: good[column] === value;
 		}

@@ -7,6 +7,7 @@ import React from 'react';
 import Moment from 'react-moment';
 
 import {useGoodsTable} from '../lib/useGoodsTable';
+import GoodsTableFilters from './table-filters';
 
 // TODO
 // const columns = [
@@ -19,43 +20,61 @@ import {useGoodsTable} from '../lib/useGoodsTable';
 const cnGoodsTable = cn('GoodsTable');
 
 const GoodsTable: React.FC = () => {
-	const {goods, isLoading, isError} = useGoodsTable();
+	const {
+		goods,
+		isLoading,
+		isError,
+		onFilterValueChange,
+		onFilterConditionChange,
+		onFilterColumnChange,
+		filterOptions,
+	} = useGoodsTable();
 
 	return (
 		<Pendable isPending={isLoading}>
-			<div className={cnGoodsTable()}>
-				<Flex
-					className={[cnGoodsTable('Row'), cnGoodsTable('Header')].join(' ')}
-					container
-					alignItems="center"
-				>
-					<h4>Date</h4>
-					<h4>Name</h4>
-					<h4>Count</h4>
-					<h4>Distance</h4>
-				</Flex>
-				<Flex className={cnGoodsTable('Body')}>
-					{isError ? (
-						<div>Error</div>
-					) : (
-						goods.map((good) => (
-							<Flex
-								key={good.id}
-								className={cnGoodsTable('Row')}
-								container
-								alignItems="center"
-							>
-								<div>
-									<Moment date={good.date} format="MMMM DD YYYY, H:mm" />
-								</div>
-								<div>{good.name}</div>
-								<div>{good.count}</div>
-								<div>{good.distance}</div>
-							</Flex>
-						))
-					)}
-				</Flex>
-			</div>
+			<Flex container flexDirection="column" gap={20}>
+				<GoodsTableFilters
+					selectedColumn={filterOptions.column}
+					selectedCondition={filterOptions.condition}
+					filterValue={filterOptions.value}
+					onFilterColumnChange={onFilterColumnChange}
+					onFilterConditionChange={onFilterConditionChange}
+					onFilterValueChange={onFilterValueChange}
+				/>
+				<div className={cnGoodsTable()}>
+					<Flex
+						className={[cnGoodsTable('Row'), cnGoodsTable('Header')].join(' ')}
+						container
+						alignItems="center"
+					>
+						<h4>Date</h4>
+						<h4>Name</h4>
+						<h4>Count</h4>
+						<h4>Distance</h4>
+					</Flex>
+					<Flex className={cnGoodsTable('Body')}>
+						{isError ? (
+							<div>Error</div>
+						) : (
+							goods.map((good) => (
+								<Flex
+									key={good.id}
+									className={cnGoodsTable('Row')}
+									container
+									alignItems="center"
+								>
+									<div>
+										<Moment date={good.date} format="MMMM DD YYYY, H:mm" />
+									</div>
+									<div>{good.name}</div>
+									<div>{good.count}</div>
+									<div>{good.distance}</div>
+								</Flex>
+							))
+						)}
+					</Flex>
+				</div>
+			</Flex>
 		</Pendable>
 	);
 };

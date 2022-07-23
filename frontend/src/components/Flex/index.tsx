@@ -18,6 +18,7 @@ interface FlexProps {
 	flexShrink?: React.CSSProperties['flexShrink'];
 	flexWrap?: React.CSSProperties['flexWrap'];
 	flex?: React.CSSProperties['flex'];
+	gap?: React.CSSProperties['gap'];
 }
 
 const Flex: React.FC<FlexProps> = ({
@@ -38,6 +39,7 @@ const Flex: React.FC<FlexProps> = ({
 	flexShrink,
 	flexWrap,
 	flex,
+	gap,
 	...rest
 }) => {
 	return (
@@ -59,6 +61,7 @@ const Flex: React.FC<FlexProps> = ({
 				flexShrink,
 				flexWrap,
 				flex,
+				gap,
 			}}
 			{...rest}
 		>

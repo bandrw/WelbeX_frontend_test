@@ -28,6 +28,9 @@ module.exports = {
 			],
 			rules: {
 				'@typescript-eslint/no-floating-promises': 0,
+				'@typescript-eslint/no-unsafe-call': 0,
+				'@typescript-eslint/no-unsafe-assignment': 0,
+				'@typescript-eslint/no-unsafe-member-access': 0,
 			},
 			parserOptions: {
 				project: ['./tsconfig.json'],
@@ -83,6 +86,8 @@ module.exports = {
 		'arrow-body-style': 0,
 		'no-param-reassign': 0,
 		'jsx-a11y/media-has-caption': 0,
+		'jsx-a11y/no-noninteractive-element-interactions': 0,
+		'jsx-a11y/click-events-have-key-events': 0,
 		'consistent-return': 0,
 		'no-nested-ternary': 0,
 	},

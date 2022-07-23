@@ -1,12 +1,15 @@
 import './styles/index.scss';
 
 import MainPage from '@pages/MainPage';
-import QueryClientProvider from '@shared/lib/QueryClientProvider';
+import QueryClientProvider from '@shared/lib/QueryClient/QueryClientProvider';
 import React from 'react';
+import {BrowserRouter} from 'react-router-dom';
 
 const App: React.FC = () => (
 	<QueryClientProvider>
-		<MainPage />
+		<BrowserRouter>
+			<MainPage />
+		</BrowserRouter>
 	</QueryClientProvider>
 );
 

@@ -5,7 +5,12 @@ interface PendableProps extends React.PropsWithChildren {
 }
 
 const Pendable: React.FC<PendableProps> = ({isPending, children}) => {
-	return <div>{isPending ? <div>Loading</div> : children}</div>;
+	return (
+		<div>
+			{/* <div>{isPending && 'Loading'}</div> // TODO */}
+			<div>{children}</div>
+		</div>
+	);
 };
 
 export default Pendable;
