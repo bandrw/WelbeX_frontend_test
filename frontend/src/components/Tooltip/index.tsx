@@ -28,7 +28,7 @@ const Popup: React.FC<PopupProps> = ({
 	const GAP = 10;
 	const ref = useRef<HTMLDivElement>(null);
 
-	const {offset: popupOffset} = useOffset<HTMLDivElement>(ref);
+	const popupOffset = useOffset<HTMLDivElement>(ref);
 
 	const getLeft = () => {
 		if (direction === 'bottom') return offset.left + offset.width / 2;
@@ -61,7 +61,7 @@ const Tooltip: React.FC<TooltipProps> = ({
 }) => {
 	const ref = useRef<HTMLDivElement>(null);
 
-	const {offset} = useOffset<HTMLDivElement>(ref);
+	const offset = useOffset<HTMLDivElement>(ref);
 
 	return (
 		<>

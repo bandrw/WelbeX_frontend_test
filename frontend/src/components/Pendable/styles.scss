@@ -1,0 +1,22 @@
+.Pendable {
+	position: relative;
+
+	&-Loader {
+		display: none;
+		z-index: 999;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background: rgba(255, 255, 255, 0.9);
+		justify-content: center;
+		align-items: center;
+		font-family: var(--f-body);
+		font-size: 2rem;
+
+		&_pending {
+			display: flex;
+		}
+	}
+}
