@@ -33,7 +33,7 @@ const parseGoodsQuery = ({sortBy, filterBy}) => {
 		if (filterBy !== undefined) {
 			parsedFilterBy = JSON.parse(filterBy);
 			if (
-				!['date', 'name', 'count', 'distance'].includes(parsedFilterBy.column) ||
+				!['name', 'count', 'distance'].includes(parsedFilterBy.column) ||
 				!['equal', 'contains', 'less', 'more'].includes(parsedFilterBy.condition) ||
 				parsedFilterBy.value === undefined ||
 				!['string', 'number'].includes(typeof parsedFilterBy.value)

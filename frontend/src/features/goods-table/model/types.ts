@@ -1,4 +1,4 @@
-export type GoodsColumn = 'date' | 'name' | 'count' | 'distance' | null;
+export type GoodsColumn = 'name' | 'count' | 'distance' | null;
 
 export type GoodsFilterCondition =
 	| 'equal'

@@ -24,10 +24,6 @@ interface GoodsTableFiltersProps {
 
 const columnOptions: ComboBoxOption[] = [
 	{
-		name: 'Date',
-		key: 'date',
-	},
-	{
 		name: 'Name',
 		key: 'name',
 	},
