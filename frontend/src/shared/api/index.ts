@@ -19,7 +19,7 @@ class Api {
 
 	constructor() {
 		this.apiInstance = axios.create({
-			baseURL: 'http://localhost:3000',
+			baseURL: '/',
 		});
 	}
 
@@ -39,7 +39,7 @@ class Api {
 				? options.filterBy
 				: undefined;
 
-		return this.get<WithPagination<Good[]>>('/goods', {
+		return this.get<WithPagination<Good[]>>('/api/goods', {
 			filterBy: JSON.stringify(filterBy),
 			sortBy: options?.sortBy,
 			page: options?.page,

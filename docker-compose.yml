@@ -18,13 +18,13 @@ services:
   server:
     container_name: server
     build: ./server
-    ports:
-      - "3000:3000"
     depends_on:
       - db
 
   frontend:
     container_name: frontend
     build: ./frontend
+    environment:
+      - API_URL=server:3000
     ports:
       - "8080:3000"

@@ -75,7 +75,7 @@ const parseGoodsQuery = ({sortBy, reverseSort, filterBy, page, pageSize}) => {
 	};
 };
 
-app.get('/goods', async (req, res) => {
+app.get('/api/goods', async (req, res) => {
 	let data;
 
 	try {
