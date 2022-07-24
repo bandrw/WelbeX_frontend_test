@@ -5,17 +5,16 @@ const log = (...args) => {
 }
 
 let client;
-
 let isConnected = false;
 
 const connect = () => {
 	log('Trying to connect...');
 	client = new Client({
-		user: 'bandrw',
-		host: 'db',
-		database: 'bandrw',
-		password: 'bandrw',
-		port: 5432,
+		user: process.env.DB_USER,
+		host: process.env.DB_HOST,
+		database: process.env.DB_NAME,
+		password: process.env.DB_PASSWORD,
+		port: process.env.DB_PORT,
 	});
 	client.connect()
 		.then(() => {

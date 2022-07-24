@@ -105,7 +105,7 @@ app.get('/api/goods', async (req, res) => {
 		}
 	}
 
-	const pagedData = data.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+	const pagedData = data.slice((page - 1) * pageSize, page * pageSize);
 
 	res.send({
 		data: pagedData,

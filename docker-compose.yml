@@ -18,6 +18,12 @@ services:
   server:
     container_name: server
     build: ./server
+    environment:
+      - DB_USER=bandrw
+      - DB_HOST=db
+      - DB_NAME=bandrw
+      - DB_PASSWORD=bandrw
+      - DB_PORT=5432
     depends_on:
       - db
 

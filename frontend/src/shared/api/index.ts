@@ -36,11 +36,11 @@ class Api {
 			options.filterBy !== undefined &&
 			options.filterBy.condition !== null &&
 			options.filterBy.column !== null
-				? options.filterBy
+				? JSON.stringify(options.filterBy)
 				: undefined;
 
 		return this.get<WithPagination<Good[]>>('/api/goods', {
-			filterBy: JSON.stringify(filterBy),
+			filterBy,
 			sortBy: options?.sortBy,
 			page: options?.page,
 			pageSize: options?.pageSize,

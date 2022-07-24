@@ -1,4 +1,4 @@
-# WelbeX_frontend_task
+# WelbeX_frontend_test
 
 ## Build:
 

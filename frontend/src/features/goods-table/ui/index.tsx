@@ -11,14 +11,6 @@ import {useGoodsTable} from '../lib/useGoodsTable';
 import GoodsTableFilters from './table-filters';
 import GoodsTablePagination from './table-pagination';
 
-// TODO
-// const columns = [
-// 	{
-// 		Header: 'Date',
-// 		accessor: (good: Good) => good.date,
-// 	},
-// ];
-
 const cnGoodsTable = cn('GoodsTable');
 
 const GoodsTable: React.FC = () => {
