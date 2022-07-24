@@ -1,6 +1,10 @@
 .Button {
 	$borderRadius: 5px;
 
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	font-size: 1em;
 	padding: 5px 20px;
 	transition: transform .1s ease-out, color .15s linear, -webkit-transform .1s ease-out;
@@ -29,5 +33,17 @@
 		&:active {
 			transform: scale(0.95);
 		}
+	}
+
+	&_withRightIcon {
+		padding-right: 40px;
+	}
+
+	&-Text {
+	}
+
+	&-RightIcon {
+		position: absolute;
+		right: 10px;
 	}
 }

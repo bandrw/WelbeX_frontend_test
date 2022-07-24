@@ -1,4 +1,13 @@
 .Footer {
 	border-top: 1px solid var(--color-gray);
 	font-family: var(--f-body);
+	gap: 10px;
+
+	&-Icon {
+		width: 20px;
+		height: 20px;
+		background-size: 100%;
+		background-position: center;
+		background-image: url("/static/images/github-icon.svg");
+	}
 }

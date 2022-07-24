@@ -1,7 +1,12 @@
+import './styles.scss';
+
+import {cn} from '@bem-react/classname';
 import Button from '@components/Button';
 import ComboBox, {ComboBoxOption} from '@components/ComboBox';
 import Control from '@components/Control';
 import Flex from '@components/Flex';
+import {faCaretLeft, faCaretRight} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useMemo} from 'react';
 
 interface GoodsTablePaginationProps {
@@ -32,6 +37,8 @@ const pageSizeOptions: ComboBoxOption[] = [
 	},
 ];
 
+const cnGoodsTablePagination = cn('GoodsTablePagination');
+
 const GoodsTablePagination: React.FC<GoodsTablePaginationProps> = ({
 	page,
 	pageSize,
@@ -51,15 +58,22 @@ const GoodsTablePagination: React.FC<GoodsTablePaginationProps> = ({
 	}, [pageSize, totalElements, totalPages]);
 
 	return (
-		<Flex container justifyContent="center" alignItems="center" gap={20}>
+		<Flex
+			className={cnGoodsTablePagination()}
+			container
+			justifyContent="center"
+			alignItems="center"
+			gap={20}
+		>
 			<Control>
 				<Button
+					className={cnGoodsTablePagination('Previous')}
 					disabled={page <= 1}
 					onClick={() => {
 						setPage(page - 1);
 					}}
 				>
-					Previous
+					<FontAwesomeIcon icon={faCaretLeft} />
 				</Button>
 			</Control>
 
@@ -90,12 +104,13 @@ const GoodsTablePagination: React.FC<GoodsTablePaginationProps> = ({
 
 			<Control>
 				<Button
+					className={cnGoodsTablePagination('Next')}
 					disabled={page >= totalPages}
 					onClick={() => {
 						setPage(page + 1);
 					}}
 				>
-					Next
+					<FontAwesomeIcon icon={faCaretRight} />
 				</Button>
 			</Control>
 		</Flex>

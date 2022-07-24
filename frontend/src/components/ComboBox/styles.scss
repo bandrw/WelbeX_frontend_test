@@ -32,4 +32,16 @@
 			}
 		}
 	}
+
+	&-Button {
+		.Button-RightIcon {
+			color: var(--color-gray);
+		}
+
+		&_opened {
+			.Button-RightIcon {
+				transform: rotate(-180deg);
+			}
+		}
+	}
 }

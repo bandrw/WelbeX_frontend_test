@@ -3,6 +3,8 @@ import './styles.scss';
 import {cn} from '@bem-react/classname';
 import Button, {ButtonPin} from '@components/Button';
 import Tooltip, {TooltipDirection} from '@components/Tooltip';
+import {faChevronDown} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 
 export interface ComboBoxOption {
@@ -94,9 +96,11 @@ const ComboBox: React.FC<ComboBoxProps> = ({
 			direction={direction}
 		>
 			<Button
+				className={cnComboBox('Button', {opened: showTooltip})}
 				ref={buttonRef}
 				onClick={() => setShowTooltip((prevState) => !prevState)}
 				pin={pin}
+				rightIcon={<FontAwesomeIcon icon={faChevronDown} />}
 			>
 				{value === null ? 'None' : displayName?.name}
 			</Button>

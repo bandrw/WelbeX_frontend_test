@@ -12,6 +12,7 @@ export interface ButtonProps extends React.PropsWithChildren {
 	view?: 'action' | 'default' | 'pseudo';
 	size?: 's' | 'm' | 'l';
 	pin?: ButtonPin;
+	rightIcon?: React.ReactNode;
 }
 
 const cnButton = cn('Button');
@@ -26,6 +27,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 			size = 's',
 			onClick,
 			pin,
+			rightIcon,
 		},
 		ref
 	) => {
@@ -38,13 +40,17 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 						[view]: true,
 						[size]: true,
 						[`pin-${pin}`]: pin !== undefined,
+						withRightIcon: rightIcon !== undefined,
 					}),
 					className,
 				].join(' ')}
 				onClick={onClick}
 				type="button"
 			>
-				{children}
+				<span className={cnButton('Text')}>{children}</span>
+				{rightIcon !== undefined && (
+					<span className={cnButton('RightIcon')}>{rightIcon}</span>
+				)}
 			</button>
 		);
 	}

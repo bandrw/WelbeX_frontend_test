@@ -17,6 +17,7 @@ const Footer: React.FC = () => {
 			justifyContent="center"
 			alignItems="center"
 		>
+			<div className={cnFooter('Icon')} />
 			<ExternalLink href="https://github.com/bandrw/WelbeX_frontend_task">
 				github.com/bandrw/WelbeX_frontend_task
 			</ExternalLink>

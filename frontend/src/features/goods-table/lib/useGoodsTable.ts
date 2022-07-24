@@ -39,14 +39,18 @@ export const useGoodsTable = () => {
 	}, []);
 
 	const onFilterColumnChange = useCallback((column: GoodsColumn) => {
-		setFilterOptions((prevState) => ({
-			...prevState,
-			value:
-				column === 'count' && typeof prevState.value === 'string'
-					? Number(prevState.value)
-					: prevState.value,
-			column,
-		}));
+		setFilterOptions((prevState) => {
+			let {value} = prevState;
+			if (column === 'count' && value !== '') {
+				value = Number(prevState.value);
+				if (Number.isNaN(value)) value = 0;
+			}
+			return {
+				...prevState,
+				value,
+				column,
+			};
+		});
 	}, []);
 
 	const onFilterConditionChange = useCallback(
