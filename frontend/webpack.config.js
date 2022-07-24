@@ -2,6 +2,7 @@ const path = require('path');
 const {TsconfigPathsPlugin} = require('tsconfig-paths-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -53,6 +54,10 @@ module.exports = {
 					to: 'static',
 				},
 			],
+		}),
+		new CompressionPlugin({
+			algorithm: 'gzip',
+			test: /\.js$|\.jsx$|\.ts$|\.tsx$|\.scss$|\.html$/,
 		}),
 	],
 };

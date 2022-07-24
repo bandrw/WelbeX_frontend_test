@@ -22,3 +22,9 @@ services:
       - "3000:3000"
     depends_on:
       - db
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "8080:3000"
