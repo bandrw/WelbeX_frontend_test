@@ -20,6 +20,7 @@ export const useGoodsTable = () => {
 	});
 
 	const [sortMethod, setSortMethod] = useState<GoodsSortMethod>(null);
+	const [reverseSort, setReverseSort] = useState(false);
 
 	const [paginationOptions, setPaginationOptions] = useState({
 		page: 1,
@@ -70,13 +71,14 @@ export const useGoodsTable = () => {
 	}, []);
 
 	const {data, isLoading, isError} = useQuery<WithPagination<Good[]>>(
-		['goods', filterOptions, sortMethod, paginationOptions],
+		['goods', filterOptions, sortMethod, reverseSort, paginationOptions],
 		() =>
 			api.getGoods({
 				filterBy: filterOptions,
 				sortBy: sortMethod,
 				page: paginationOptions.page,
 				pageSize: paginationOptions.pageSize,
+				reverseSort,
 			})
 	);
 
@@ -101,5 +103,7 @@ export const useGoodsTable = () => {
 		filterOptions,
 		sortMethod,
 		onSortChange,
+		reverseSort,
+		setReverseSort,
 	};
 };

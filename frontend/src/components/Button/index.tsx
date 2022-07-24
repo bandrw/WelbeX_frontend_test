@@ -5,7 +5,8 @@ import React from 'react';
 
 export type ButtonPin = 'left' | 'right';
 
-interface ButtonProps extends React.PropsWithChildren {
+export interface ButtonProps extends React.PropsWithChildren {
+	className?: string;
 	disabled?: boolean;
 	onClick?: () => void;
 	view?: 'action' | 'default' | 'pseudo';
@@ -17,18 +18,29 @@ const cnButton = cn('Button');
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 	(
-		{children, disabled = false, view = 'default', size = 's', onClick, pin},
+		{
+			children,
+			className,
+			disabled = false,
+			view = 'default',
+			size = 's',
+			onClick,
+			pin,
+		},
 		ref
 	) => {
 		return (
 			<button
 				ref={ref}
 				disabled={disabled}
-				className={cnButton({
-					[view]: true,
-					[size]: true,
-					[`pin-${pin}`]: pin !== undefined,
-				})}
+				className={[
+					cnButton({
+						[view]: true,
+						[size]: true,
+						[`pin-${pin}`]: pin !== undefined,
+					}),
+					className,
+				].join(' ')}
 				onClick={onClick}
 				type="button"
 			>

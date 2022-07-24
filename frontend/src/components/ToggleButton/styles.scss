@@ -1,0 +1,11 @@
+.ToggleButton {
+	&_toggled {
+		background: var(--color-light-yellow);
+
+		&:not([disabled]) {
+			&:hover {
+				background: rgba(255,219,77,0.35);
+			}
+		}
+	}
+}

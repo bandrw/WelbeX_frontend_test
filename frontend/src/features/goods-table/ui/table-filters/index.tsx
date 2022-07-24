@@ -2,6 +2,7 @@ import ComboBox, {ComboBoxOption} from '@components/ComboBox';
 import Control from '@components/Control';
 import Flex from '@components/Flex';
 import TextInput from '@components/TextInput';
+import ToggleButton from '@components/ToggleButton';
 import React from 'react';
 
 import {
@@ -20,6 +21,8 @@ interface GoodsTableFiltersProps {
 	onFilterValueChange: (value: GoodsFilterValue) => void;
 	sortMethod: GoodsSortMethod;
 	onSortChange: (method: GoodsSortMethod) => void;
+	reverseSort: boolean;
+	setReverseSort: (value: boolean) => void;
 }
 
 const columnOptions: ComboBoxOption[] = [
@@ -78,6 +81,8 @@ const GoodsTableFilters: React.FC<GoodsTableFiltersProps> = ({
 	onFilterConditionChange,
 	sortMethod,
 	onSortChange,
+	reverseSort,
+	setReverseSort,
 }) => {
 	return (
 		<Flex container alignItems="center" gap={20}>
@@ -108,12 +113,22 @@ const GoodsTableFilters: React.FC<GoodsTableFiltersProps> = ({
 			</Control>
 
 			<Control title="Sort by">
-				<ComboBox
-					showNullOption
-					options={sortMethodOptions}
-					value={sortMethod}
-					onChange={onSortChange}
-				/>
+				<Flex container>
+					<ComboBox
+						showNullOption
+						options={sortMethodOptions}
+						value={sortMethod}
+						onChange={onSortChange}
+						pin="left"
+					/>
+					<ToggleButton
+						pin="right"
+						onClick={() => setReverseSort(!reverseSort)}
+						toggled={reverseSort}
+					>
+						Reverse
+					</ToggleButton>
+				</Flex>
 			</Control>
 		</Flex>
 	);

@@ -24,9 +24,12 @@ const getFilterGoodsMethod = ({column, condition, value}) => {
 		if (condition === 'more') return (good) => good[column] > value;
 };
 
-const parseGoodsQuery = ({sortBy, filterBy, page, pageSize}) => {
+const parseGoodsQuery = ({sortBy, reverseSort, filterBy, page, pageSize}) => {
 	if (sortBy !== undefined && !['name', 'count', 'distance'].includes(sortBy)) {
 		return {isError: true, code: 400, msg: 'Invalid sort method'};
+	}
+	if (reverseSort !== undefined && !['true', 'false'].includes(reverseSort)) {
+		return {isError: true, code: 400, msg: 'Invalid reverseSort value'};
 	}
 
 	let parsedFilterBy;
@@ -64,6 +67,7 @@ const parseGoodsQuery = ({sortBy, filterBy, page, pageSize}) => {
 		isError: false,
 		query: {
 			sortBy,
+			reverseSort: reverseSort === 'true',
 			filterBy: parsedFilterBy,
 			page: parsedPage,
 			pageSize: parsedPageSize,
@@ -88,13 +92,17 @@ app.get('/goods', async (req, res) => {
 		res.send({msg});
 		return;
 	}
-	const {sortBy, filterBy, page = 1, pageSize = 10} = query;
+	const {sortBy, reverseSort, filterBy, page = 1, pageSize = 10} = query;
 
 	if (filterBy !== undefined) {
 		data = data.filter(getFilterGoodsMethod(filterBy));
 	}
 	if (sortBy !== undefined) {
-		data.sort(sortGoodsMethods[sortBy]);
+		if (reverseSort) {
+			data.sort((a, b) => sortGoodsMethods[sortBy](b, a));
+		} else {
+			data.sort(sortGoodsMethods[sortBy]);
+		}
 	}
 
 	const pagedData = data.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);

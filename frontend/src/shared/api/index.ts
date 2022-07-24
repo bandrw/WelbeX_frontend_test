@@ -11,6 +11,7 @@ interface GetGoodsOptions {
 	sortBy?: GoodsSortMethod;
 	page?: number;
 	pageSize?: number;
+	reverseSort?: boolean;
 }
 
 class Api {
@@ -43,6 +44,7 @@ class Api {
 			sortBy: options?.sortBy,
 			page: options?.page,
 			pageSize: options?.pageSize,
+			reverseSort: options?.reverseSort ? 'true' : undefined,
 		});
 	}
 }

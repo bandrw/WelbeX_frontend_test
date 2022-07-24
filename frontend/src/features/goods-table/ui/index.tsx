@@ -32,6 +32,8 @@ const GoodsTable: React.FC = () => {
 		filterOptions,
 		sortMethod,
 		onSortChange,
+		reverseSort,
+		setReverseSort,
 		page,
 		pageSize,
 		totalPages,
@@ -52,6 +54,8 @@ const GoodsTable: React.FC = () => {
 					onFilterValueChange={onFilterValueChange}
 					sortMethod={sortMethod}
 					onSortChange={onSortChange}
+					reverseSort={reverseSort}
+					setReverseSort={setReverseSort}
 				/>
 				<div className={cnGoodsTable()}>
 					<Flex
