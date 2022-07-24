@@ -18,8 +18,8 @@ const Footer: React.FC = () => {
 			alignItems="center"
 		>
 			<div className={cnFooter('Icon')} />
-			<ExternalLink href="https://github.com/bandrw/WelbeX_frontend_task">
-				github.com/bandrw/WelbeX_frontend_task
+			<ExternalLink href="https://github.com/bandrw/WelbeX_frontend_test">
+				github.com/bandrw/WelbeX_frontend_test
 			</ExternalLink>
 		</Flex>
 	);
